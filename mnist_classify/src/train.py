@@ -1,5 +1,6 @@
 import joblib
 import os
+import argparse
 import pandas as pd
 from sklearn import metrics
 from sklearn import tree
@@ -29,8 +30,11 @@ def run(fold):
     joblib.dump(clf, os.path.join(config.MODEL_OUTPUT, f"dt_{fold}.bin"))
 
 if __name__ == "__main__":
-    run(fold=0)
-    run(fold=1)
-    run(fold=2)
-    run(fold=3)
-    run(fold=4)
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--fold",
+        type=int
+    )
+    args = parser.parse_args()
+    run(fold=args.fold)
